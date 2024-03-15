@@ -5,20 +5,6 @@ import (
 )
 
 func main() {
-	// // initialize variables
-	// revenue, err  := strconv.ParseFloat(getUserInput("Revenue: "), 64)
-	// if err != nil {
-	// 	fmt.Print("Error:", err)
-	// }
-	// expenses, err := strconv.ParseFloat(getUserInput("Expenses: "), 64)
-	// if err != nil {
-	// 	fmt.Print("Error:", err)
-	// }
-	// taxrate, err := strconv.ParseFloat(getUserInput("Tax rate:"), 64)
-	// if err != nil {
-	// 	fmt.Print("Error:", err)
-	// }
-
 	revenue := getUserInput("Revenue: ")
 	expenses := getUserInput("Expendses: ")
 	taxrate := getUserInput("Tax Rate: ")
@@ -51,7 +37,14 @@ func calculateTaxesProfitRatio(revenue, expenses, taxrate float64) (ebt float64,
 }
 
 func getUserInput(prompt string) (userInput float64) {
-	fmt.Print(prompt)
-	fmt.Scan(&userInput)
+	_, printError := fmt.Print(prompt)
+	if printError != nil {
+		print("Error printing")
+	}
+	_, userInputError := fmt.Scan(&userInput)
+	if userInputError != nil {
+		print("Error with user input not being a float")
+	}
+	
 	return userInput
 }
