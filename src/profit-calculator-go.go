@@ -24,7 +24,7 @@ func outputText(ebt, profit, ratio float64) {
 
 	Profit is: $%.2f
 	
-	Ratio (EBT/Profit) is: %.2f
+	Ratio (EBT/Profit) is: %.3f
 	`, ebt, profit, ratio)
 }
 
