@@ -5,31 +5,53 @@ import (
 )
 
 func main() {
-	// initialize variables
-	var revenue float64
-	var expenses float64
-	var taxrate float64
+	// // initialize variables
+	// revenue, err  := strconv.ParseFloat(getUserInput("Revenue: "), 64)
+	// if err != nil {
+	// 	fmt.Print("Error:", err)
+	// }
+	// expenses, err := strconv.ParseFloat(getUserInput("Expenses: "), 64)
+	// if err != nil {
+	// 	fmt.Print("Error:", err)
+	// }
+	// taxrate, err := strconv.ParseFloat(getUserInput("Tax rate:"), 64)
+	// if err != nil {
+	// 	fmt.Print("Error:", err)
+	// }
 
-	// get values for variables above from user
-	fmt.Print("revenue: ")
-	fmt.Scan(&revenue)
-	fmt.Print("expenses: ")
-	fmt.Scan(&expenses)
-	fmt.Print("tax rate: ")
-	fmt.Scan(&taxrate)
+	revenue := getUserInput("Revenue: ")
+	expenses := getUserInput("Expendses: ")
+	taxrate := getUserInput("Tax Rate: ")
 
 	// calculate variables
-	earningsbeforetax := revenue - expenses
-	taxes := earningsbeforetax * (taxrate / 100)
-	profit := earningsbeforetax - taxes
-	ratio := earningsbeforetax / profit
+	ebt, profit, ratio := calculateTaxesProfitRatio(revenue, expenses, taxrate)
 
-	fmt.Println("")
-	fmt.Println("Earnings before tax is: $",earningsbeforetax)
-	fmt.Println("Profit is: $",profit)
-	fmt.Println("Ratio (EBT/Profit) is:",ratio)
+	// Outputs information
+	outputText(ebt, profit, ratio)
+	
 
 }
 
+func outputText(ebt, profit, ratio float64) {
+	fmt.Printf(`
+	Earnings before tax is: $%.2f
 
+	Profit is: $%.2f
+	
+	Ratio (EBT/Profit) is: %.2f
+	`, ebt, profit, ratio)
+}
 
+func calculateTaxesProfitRatio(revenue, expenses, taxrate float64) (ebt float64, profit float64, ratio float64) {
+	ebt = revenue - expenses
+	taxes := ebt * (taxrate / 100)
+	profit = ebt - taxes
+	ratio = ebt / profit
+	return  
+}
+
+func getUserInput(prompt string) (userInput float64) {
+	fmt.Print(prompt)
+	fmt.Scan(&userInput)
+	return userInput
+}
